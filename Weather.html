@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Yahoo weather API</title>
+<meta charset="utf-8">
+<meta name="description" content="This webpage displays the current temperature of a location">
+<meta name="author" content="Saaketh Balusu">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {background: url("https://4.bp.blogspot.com/-Jqxj_CeOgI4/UyQ9-5EzJqI/AAAAAAAArI0/AQEOpmApzaQ/s0/Empire+State+Building_HD.jpg") no-repeat;
+background-size: 100%;}
+</style>
+<!-- Adding and external sytlesheet -->
+<link rel="stylesheet" href="styler.css">
+<!-- Adding Jquery CDN -->
+<script
+  src="https://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  crossorigin="anonymous">
+</script>
+</head>
+<body>
+<div class="col-12" style="color: White;"><h1 style="text-align:center">Check the current weather for NYC</h1></div>
+<div class="row"></div>
+<div class="col-4" style="text-align:center">
+<h2 id="temp" style="font-size:20pt; color:white"></h2>
+<script>
+var callbackFunction = function(data) {
+    var forecast = data.query.results.channel.item.condition;
+    $("#temp").text("Temperature: " + forecast.temp + " °F"  );
+  };</script>
+ <script src="https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='new york')&format=json&callback=callbackFunction"></script>
+ </div>
+ <div class="col-4" style="text-align:center; border: solid grey 2px;">
+<h2 id="date" style="font-size:20pt; color:grey"></h2>
+<script>
+var callbackFunction = function(data) {
+    var forecast = data.query.results.channel.item.condition;
+    $("#date").text(forecast.date );
+  };</script>
+ <script src="https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='new york')&format=json&callback=callbackFunction"></script>
+ </div>
+ <div class="col-4" style="text-align:center">
+<h2 id="cond" style="font-size:20pt; color:white"></h2>
+<script>
+var callbackFunction = function(data) {
+    var forecast = data.query.results.channel.item.condition;
+    $("#cond").text("Condition: " + forecast.text );
+  };</script>
+ <script src="https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='new york')&format=json&callback=callbackFunction"></script>
+ </div>
+</body>
+</html>
